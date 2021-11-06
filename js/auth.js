@@ -49,6 +49,8 @@ closeAuth.addEventListener('click', () => {
     modalAuth.style.display = 'none';
     inputLogin.value = '';
     inputPassword.value = '';
+    inputLogin.style.border = '';
+    inputError.style.display = 'none';
 });
 
 logInForm.addEventListener('submit', (evt) => {
