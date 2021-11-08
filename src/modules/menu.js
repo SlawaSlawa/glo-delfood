@@ -1,5 +1,10 @@
+import cart from "./cart";
+
 const menu = () => {
     const cardsMenu = document.querySelector('.cards-menu');
+    const cartArray = localStorage.getItem('cart') ?
+        JSON.parse(localStorage.getItem('cart')) :
+        [];
 
     const changeTitle = (restaurant) => {
         const restaurantTitle = document.querySelector('.restaurant-title');
@@ -12,6 +17,39 @@ const menu = () => {
         ratingEl.textContent = stars;
         priceEl.textContent = price;
         categoryEl.textContent = kitchen;
+    };
+
+    const addToCart = (cartItem) => {
+        // const getCart = localStorage.getItem('cart');
+        // let flag = true;
+
+        // if (getCart) {
+        //     JSON.parse(getCart).forEach((item, index) => {
+        //         if (item.name === cartItem.name) {
+        //             cartArray[index].count++;
+        //             flag = false;
+        //         }
+        //     });
+        //     if (flag) {
+        //         cartArray.push(cartItem);
+        //     }
+        // } else {
+        //     cartArray.push(cartItem);
+        // }
+
+        // localStorage.setItem('cart', JSON.stringify(cartArray));
+        if (cartArray.some(item => item.id === cartItem.id)) {
+            cartArray.map((item) => {
+                if (item.id === cartItem.id) {
+                    item.count++;
+                }
+                return item;
+            })
+        } else {
+            cartArray.push(cartItem);
+        }
+
+        localStorage.setItem('cart', JSON.stringify(cartArray));
     };
 
     const renderItems = (data) => {
@@ -45,10 +83,23 @@ const menu = () => {
                 </div>
                 <!-- /.card -->
             `;
+            const buttonAddCart = div.querySelector('.button-add-cart');
+
+            buttonAddCart.addEventListener('click', (evt) => {
+                const cartItem = {
+                    id,
+                    name,
+                    price,
+                    count: 1
+                };
+                addToCart(cartItem);
+            });
 
             cardsMenu.append(div);
         });
     };
+
+
 
     if (localStorage.getItem('restaurant')) {
         const restaurant = JSON.parse(localStorage.getItem('restaurant'));

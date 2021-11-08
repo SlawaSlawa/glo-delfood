@@ -3,6 +3,7 @@ const auth = () => {
 
     const buttonAuth = document.querySelector('.button-auth');
     const buttonOut = document.querySelector('.button-out');
+    const buttonCart = document.querySelector('.button-cart');
     const userName = document.querySelector('.user-name');
     const modalAuth = document.querySelector('.modal-auth');
     const closeAuth = document.querySelector('.close-auth');
@@ -17,6 +18,7 @@ const auth = () => {
         modalAuth.style.display = 'none';
         userName.style.display = 'block';
         userName.textContent = user.login;
+        buttonCart.style.display = 'flex';
     };
 
     const logout = () => {
@@ -24,7 +26,8 @@ const auth = () => {
         buttonOut.style.display = 'none';
         userName.style.display = 'none';
         userName.textContent = '';
-        localStorage.removeItem('user')
+        localStorage.removeItem('user');
+        buttonCart.style.display = 'none';
     };
 
     const validateInput = () => {
